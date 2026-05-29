@@ -54,19 +54,10 @@ export default function App(): React.ReactElement {
     if (settings?.theme) setTheme(settings.theme)
   }, [settings?.theme])
 
-  function toggleTheme(): void {
-    const next = theme === 'dark' ? 'light' : 'dark'
-    setTheme(next)
-    window.electron.invoke(IPC.STORE_SET, 'settings', { ...(settings ?? {}), theme: next }).catch(() => {})
-  }
-
   return (
     <div className="flex flex-col h-full bg-white dark:bg-dark-bg text-gray-900 dark:text-dark-text select-none">
       {/* Title bar / Tab bar */}
       <div className="flex items-center gap-1 px-4 pt-2 pb-0 border-b border-gray-200 dark:border-dark-overlay shrink-0 drag-region">
-        <span className="font-semibold text-sm text-gray-800 dark:text-dark-text mr-4 no-drag">
-          MCModLocalizer
-        </span>
         {TABS.map((tab) => (
           <button
             key={tab.id}
@@ -80,15 +71,6 @@ export default function App(): React.ReactElement {
             {tab.label}
           </button>
         ))}
-        <div className="ml-auto">
-          <button
-            onClick={toggleTheme}
-            title="テーマ切り替え"
-            className="no-drag p-1.5 rounded hover:bg-gray-100 dark:hover:bg-dark-overlay text-gray-500 dark:text-dark-muted transition-colors"
-          >
-            {theme === 'dark' ? '☀' : '🌙'}
-          </button>
-        </div>
       </div>
 
       {/* Tab content */}
