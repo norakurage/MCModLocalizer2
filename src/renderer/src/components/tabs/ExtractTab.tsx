@@ -68,7 +68,7 @@ export function ExtractTab(): React.ReactElement {
     await window.electron.invoke(IPC.TRANSLATION_STOP)
   }
 
-  const progressItems = Array.from(progress.values()).filter((p) => p.modId !== '__global')
+  const progressItems = Array.from(progress.values()).filter((p) => p.modId !== '__global' && p.ratio < 1)
 
   return (
     <div className="flex flex-col h-full gap-4 p-4 overflow-hidden">
